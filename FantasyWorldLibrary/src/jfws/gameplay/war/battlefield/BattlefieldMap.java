@@ -1,5 +1,7 @@
 package jfws.gameplay.war.battlefield;
 
+import jfws.gameplay.war.unit.Unit;
+
 public class BattlefieldMap
 {
 	private int size_x_;
@@ -45,5 +47,28 @@ public class BattlefieldMap
 		}
 		
 		return cells_[y][x];
+	}
+	
+	public boolean addUnit(Unit unit, int x, int y)
+	{
+		if(unit == null)
+		{
+			throw new IllegalArgumentException("Unit cannot be null!");
+		}
+		else if(!isInside(x, y))
+		{
+			return false;
+		}
+		
+		BattlefieldCell cell = cells_[y][x];
+		
+		if(cell.unit_ != null)
+		{
+			return false;
+		}
+		
+		cell.unit_ = unit;
+		
+		return true;
 	}
 }

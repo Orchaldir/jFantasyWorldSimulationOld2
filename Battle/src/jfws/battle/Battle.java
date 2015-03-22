@@ -14,7 +14,7 @@ public class Battle
 		BattlefieldMap battlefield = new BattlefieldMap(5, 2);
 		Unit unit = new Unit("HI1");
 		
-		battlefield.getCell(2, 0).unit_ = unit;
+		battlefield.addUnit(unit, 2, 0);
 		
 		printBattlefield(battlefield, 3);
 	}
