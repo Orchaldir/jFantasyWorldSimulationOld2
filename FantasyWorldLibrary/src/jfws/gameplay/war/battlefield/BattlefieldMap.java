@@ -1,5 +1,7 @@
 package jfws.gameplay.war.battlefield;
 
+import java.util.HashMap;
+import java.util.Map;
 import jfws.gameplay.war.unit.Unit;
 
 public class BattlefieldMap
@@ -7,6 +9,7 @@ public class BattlefieldMap
 	private int size_x_;
 	private int size_y_;
 	private BattlefieldCell cells_[][];
+	private Map<Unit,BattlefieldCell> units_ = new HashMap<>();
 	
 	public BattlefieldMap(int size_x, int size_y)
 	{
@@ -68,6 +71,26 @@ public class BattlefieldMap
 		}
 		
 		cell.unit_ = unit;
+		units_.put(unit, cell);
+		
+		return true;
+	}
+	
+	public boolean removeUnit(Unit unit)
+	{
+		if(unit == null)
+		{
+			throw new IllegalArgumentException("Unit cannot be null!");
+		}
+		
+		BattlefieldCell cell = units_.remove(unit);
+		
+		if(cell == null)
+		{
+			return false;
+		}
+		
+		cell.unit_ = null;
 		
 		return true;
 	}

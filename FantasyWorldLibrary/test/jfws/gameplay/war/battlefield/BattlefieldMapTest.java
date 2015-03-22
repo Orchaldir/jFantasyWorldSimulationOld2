@@ -98,4 +98,28 @@ public class BattlefieldMapTest
 		assertTrue(battlefield.addUnit(unit0_, 0, 0));
 		assertFalse(battlefield.addUnit(unit1_, 0, 0));
 	}
+	
+	@Test
+	public void testRemoveUnit()
+	{
+		BattlefieldMap battlefield = new BattlefieldMap(size_x, size_y_);
+		
+		battlefield.addUnit(unit0_, 0, 0);
+		
+		assertTrue(battlefield.removeUnit(unit0_));
+		assertNull(battlefield.getCell(0, 0).unit_);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testRemoveUnitWithNull()
+	{
+		battlefield_.removeUnit(null);
+	}
+	
+	@Test
+	public void testRemoveUnitNotAdded()
+	{
+		assertFalse(battlefield_.removeUnit(unit0_));
+		assertFalse(battlefield_.removeUnit(unit1_));
+	}
 }
