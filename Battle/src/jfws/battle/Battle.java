@@ -17,11 +17,11 @@ public class Battle
 	
 	public static void printBattlefield(BattlefieldMap battlefield)
 	{
-		for(int h = 0; h < battlefield.getHeight(); h++)
+		for(int y = 0; y < battlefield.getSizeY(); y++)
 		{
 			String line = "";
 			
-			for(int w = 0; w < battlefield.getWidth(); w++)
+			for(int x = 0; x < battlefield.getSizeX(); x++)
 			{
 				line += ".";
 			}
