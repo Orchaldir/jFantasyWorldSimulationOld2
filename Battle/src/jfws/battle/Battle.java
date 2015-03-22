@@ -1,6 +1,7 @@
 package jfws.battle;
 
 import jfws.gameplay.war.battlefield.*;
+import jfws.gameplay.war.unit.Unit;
 
 public class Battle
 {
@@ -11,19 +12,39 @@ public class Battle
 		System.out.println("----------------\n");
 		
 		BattlefieldMap battlefield = new BattlefieldMap(5, 2);
+		Unit unit = new Unit("HI1");
 		
-		printBattlefield(battlefield);
+		battlefield.getCell(2, 0).unit_ = unit;
+		
+		printBattlefield(battlefield, 3);
 	}
 	
-	public static void printBattlefield(BattlefieldMap battlefield)
+	public static void printBattlefield(BattlefieldMap battlefield, int cell_size)
 	{
+		String border = "|";
+		String free = " ";
+		
 		for(int y = 0; y < battlefield.getSizeY(); y++)
 		{
-			String line = "";
+			String line = border;
 			
 			for(int x = 0; x < battlefield.getSizeX(); x++)
 			{
-				line += ".";
+				Unit unit = battlefield.getCell(x, y).unit_;
+				int start = 0;
+				
+				if(unit != null)
+				{
+					line += unit.getName();
+					start = unit.getName().length();
+				}
+				
+				for(;start < cell_size; start++)
+				{
+					line += free;
+				}
+				
+				line += border;
 			}
 			
 			System.out.println(line);
