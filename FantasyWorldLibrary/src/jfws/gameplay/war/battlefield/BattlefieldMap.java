@@ -22,7 +22,7 @@ public class BattlefieldMap
 		{
 			for(int x = 0; x < size_x_; x++)
 			{
-				cells_[y][x] = new BattlefieldCell();
+				cells_[y][x] = new BattlefieldCell(x, y);
 			}
 		}
 	}
@@ -50,6 +50,36 @@ public class BattlefieldMap
 		}
 		
 		return cells_[y][x];
+	}
+	
+	public BattlefieldCell getNeighbor(BattlefieldCell cell, Direction dir)
+	{
+		if(cell == null)
+		{
+			throw new IllegalArgumentException("Cell cannot be null!");
+		}
+		
+		int neighbor_x = cell.x_;
+		int neighbor_y = cell.y_;
+		
+		if(dir == Direction.NORTH)
+		{
+			neighbor_y++;
+		}
+		else if(dir == Direction.EAST)
+		{
+			neighbor_x++;
+		}
+		else if(dir == Direction.SOUTH)
+		{
+			neighbor_y--;
+		}
+		else if(dir == Direction.WEST)
+		{
+			neighbor_x--;
+		}
+		
+		return getCell(neighbor_x, neighbor_y);
 	}
 	
 	public boolean addUnit(Unit unit, int x, int y)
@@ -91,6 +121,39 @@ public class BattlefieldMap
 		}
 		
 		cell.unit_ = null;
+		
+		return true;
+	}
+	
+	public boolean moveUnit(Unit unit, Direction dir)
+	{
+		if(unit == null)
+		{
+			throw new IllegalArgumentException("Unit cannot be null!");
+		}
+		
+		BattlefieldCell cell = units_.get(unit);
+		
+		if(cell == null)
+		{
+			return false;
+		}
+		
+		BattlefieldCell neighbor = getNeighbor(cell, dir);
+		
+		if(neighbor == null)
+		{
+			return false;
+		}
+		else if(neighbor.unit_ != null)
+		{
+			return false;
+		}
+		
+		neighbor.unit_ = unit;
+		cell.unit_ = null;
+		
+		units_.put(unit, neighbor);
 		
 		return true;
 	}

@@ -67,6 +67,37 @@ public class BattlefieldMapTest
 	}
 	
 	@Test
+	public void testGetNeighbor()
+	{
+		BattlefieldCell cell00 = battlefield_.getCell(0, 0);
+		BattlefieldCell cell10 = battlefield_.getCell(1, 0);
+		BattlefieldCell cell01 = battlefield_.getCell(0, 1);
+		BattlefieldCell cell11 = battlefield_.getCell(1, 1);
+		
+		assertEquals(cell01, battlefield_.getNeighbor(cell00, Direction.NORTH));
+		assertEquals(cell11, battlefield_.getNeighbor(cell01, Direction.EAST));
+		assertEquals(cell10, battlefield_.getNeighbor(cell11, Direction.SOUTH));
+		assertEquals(cell00, battlefield_.getNeighbor(cell10, Direction.WEST));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetNeighborWithNull()
+	{
+		battlefield_.getNeighbor(null, Direction.NORTH);
+	}
+	
+	public void testGetNeighborOutsideMap()
+	{
+		BattlefieldCell cell00 = battlefield_.getCell(0, 0);
+		BattlefieldCell cell11 = battlefield_.getCell(size_x-1, size_y_-1);
+		
+		assertNull(battlefield_.getNeighbor(cell11, Direction.NORTH));
+		assertNull(battlefield_.getNeighbor(cell11, Direction.EAST));
+		assertNull(battlefield_.getNeighbor(cell00, Direction.SOUTH));
+		assertNull(battlefield_.getNeighbor(cell00, Direction.WEST));
+	}
+	
+	@Test
 	public void testAddUnit()
 	{
 		BattlefieldMap battlefield = new BattlefieldMap(size_x, size_y_);
@@ -121,5 +152,40 @@ public class BattlefieldMapTest
 	{
 		assertFalse(battlefield_.removeUnit(unit0_));
 		assertFalse(battlefield_.removeUnit(unit1_));
+	}
+	
+	@Test
+	public void testMoveUnit()
+	{
+		BattlefieldMap battlefield = new BattlefieldMap(size_x, size_y_);
+		
+		battlefield.addUnit(unit0_, 0, 0);
+		
+		assertTrue(battlefield.moveUnit(unit0_, Direction.NORTH));
+		assertEquals(unit0_, battlefield.getCell(0, 1).unit_);
+		
+		assertTrue(battlefield.moveUnit(unit0_, Direction.EAST));
+		assertEquals(unit0_, battlefield.getCell(1, 1).unit_);
+		
+		assertTrue(battlefield.moveUnit(unit0_, Direction.SOUTH));
+		assertEquals(unit0_, battlefield.getCell(1, 0).unit_);
+		
+		assertTrue(battlefield.moveUnit(unit0_, Direction.WEST));
+		assertEquals(unit0_, battlefield.getCell(0, 0).unit_);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testMoveUnitWithNull()
+	{
+		battlefield_.moveUnit(null, Direction.NORTH);
+	}
+	
+	@Test
+	public void testMoveUnitNotAdded()
+	{
+		assertFalse(battlefield_.moveUnit(unit0_, Direction.NORTH));
+		assertFalse(battlefield_.moveUnit(unit0_, Direction.EAST));
+		assertFalse(battlefield_.moveUnit(unit0_, Direction.SOUTH));
+		assertFalse(battlefield_.moveUnit(unit0_, Direction.WEST));
 	}
 }
