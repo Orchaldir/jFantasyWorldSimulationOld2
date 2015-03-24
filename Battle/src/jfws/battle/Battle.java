@@ -33,7 +33,7 @@ public class Battle
 		String border = "|";
 		String free = " ";
 		
-		for(int y = 0; y < battlefield.getSizeY(); y++)
+		for(int y = battlefield.getSizeY() - 1; y >= 0; y--)
 		{
 			String line = border;
 			
