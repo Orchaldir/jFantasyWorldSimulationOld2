@@ -3,10 +3,19 @@ package jfws.battle;
 import java.util.Scanner;
 import jfws.gameplay.war.battlefield.*;
 import jfws.gameplay.war.unit.Unit;
+import jfws.gameplay.war.unit.stats.Attribute;
+import jfws.gameplay.war.unit.stats.AttributeMgr;
+import jfws.gameplay.war.unit.stats.CharacterClass;
+import jfws.gameplay.war.unit.stats.Skill;
+import jfws.gameplay.war.unit.stats.SkillMgr;
 
 public class Battle
 {
 	public static Scanner input_ = new Scanner(System.in);
+	
+	public static AttributeMgr attribute_mgr_ = new AttributeMgr();
+	public static SkillMgr skill_mgr_ = new SkillMgr();
+	
 	public static BattlefieldMap battlefield_ = new BattlefieldMap(5, 2);
 	public static int cell_size_ = 3;
 	
@@ -14,6 +23,17 @@ public class Battle
 	{
 		System.out.println("Battle Prototype");
 		System.out.println("----------------\n");
+		
+		Attribute agility = attribute_mgr_.createAttribute("Agility");
+		Attribute perception = attribute_mgr_.createAttribute("Perception");
+		Attribute strength = attribute_mgr_.createAttribute("Strength");
+		
+		Skill fighting = skill_mgr_.createSkill("Fighting");
+		Skill shooting = skill_mgr_.createSkill("Shooting");
+		
+		CharacterClass heavy_infantry = new CharacterClass("Heavy Infantry");
+		heavy_infantry.setAttribute(strength, 2);
+		heavy_infantry.setSkill(fighting, 2);
 		
 		Unit unit = new Unit("HI1");
 		
