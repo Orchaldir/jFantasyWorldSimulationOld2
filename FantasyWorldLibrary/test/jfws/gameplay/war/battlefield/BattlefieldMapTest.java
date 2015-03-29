@@ -9,8 +9,8 @@ public class BattlefieldMapTest
 	private static int size_x = 2;
 	private static int size_y_ = 3;
 	private static BattlefieldMap battlefield_ = new BattlefieldMap(size_x, size_y_);
-	private static Unit unit0_ = new Unit("0");
-	private static Unit unit1_ = new Unit("1");
+	private static Unit unit0_ = new Unit("0", null);
+	private static Unit unit1_ = new Unit("1", null);
 
 	@Test
 	public void testGetWidth()

@@ -17,7 +17,7 @@ public abstract class UnitType
 		return name_;
 	}
 	
-	abstract int getAttribute(Attribute attribute);
+	public abstract int getAttribute(Attribute attribute);
 	
-	abstract int getSkill(Skill skill);
+	public abstract int getSkill(Skill skill);
 }

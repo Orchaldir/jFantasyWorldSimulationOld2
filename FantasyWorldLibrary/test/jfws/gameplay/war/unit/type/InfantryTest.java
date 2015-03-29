@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 
 public class InfantryTest
 {
-	private String name_ = "Test Class";
+	private String name_ = "Test Infantry";
 	private static CharacterClass character_class_0_;
 	private static CharacterClass character_class_1_;
 	private static Race race_0_;

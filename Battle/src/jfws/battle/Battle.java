@@ -6,8 +6,11 @@ import jfws.gameplay.war.unit.Unit;
 import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.AttributeMgr;
 import jfws.gameplay.war.unit.stats.CharacterClass;
+import jfws.gameplay.war.unit.stats.Race;
 import jfws.gameplay.war.unit.stats.Skill;
 import jfws.gameplay.war.unit.stats.SkillMgr;
+import jfws.gameplay.war.unit.type.Infantry;
+import jfws.gameplay.war.unit.type.UnitType;
 
 public class Battle
 {
@@ -35,7 +38,11 @@ public class Battle
 		heavy_infantry.setAttribute(strength, 2);
 		heavy_infantry.setSkill(fighting, 2);
 		
-		Unit unit = new Unit("HI1");
+		Race race = new Race("Human");
+		
+		UnitType type = new Infantry("Heavy Infantry", heavy_infantry, race);
+		
+		Unit unit = new Unit("HI1", type);
 		
 		battlefield_.addUnit(unit, 2, 0);
 		
