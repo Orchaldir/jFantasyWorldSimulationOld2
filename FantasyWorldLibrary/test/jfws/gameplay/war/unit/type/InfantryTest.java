@@ -2,6 +2,7 @@ package jfws.gameplay.war.unit.type;
 
 import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.CharacterClass;
+import jfws.gameplay.war.unit.stats.Race;
 import jfws.gameplay.war.unit.stats.Skill;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,6 +13,8 @@ public class InfantryTest
 	private String name_ = "Test Class";
 	private static CharacterClass character_class_0_;
 	private static CharacterClass character_class_1_;
+	private static Race race_0_;
+	private static Race race_1_;
 	private static Attribute attribute_0_ = new Attribute("Attribute 0", 0);
 	private static Attribute attribute_1_ = new Attribute("Attribute 1", 1);
 	private static Skill skill_0_ = new Skill("Skill 0");
@@ -31,6 +34,12 @@ public class InfantryTest
 		character_class_1_ = new CharacterClass("Character Class 1");
 		character_class_1_.setAttribute(attribute_1_, attribute_level_1_);
 		character_class_1_.setSkill(skill_1_, skill_level_1_);
+		
+		race_0_ = new Race("Race 0");
+		race_0_.setAttribute(attribute_0_, attribute_level_1_);
+		race_0_.setSkill(skill_0_, skill_level_1_);
+		
+		race_1_ = new Race("Race 1");
 	}
 	
 	// CharacterClass
@@ -38,7 +47,7 @@ public class InfantryTest
 	@Test
 	public void testGetCharacterClass()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		
 		assertEquals(character_class_0_, infantry.getCharacterClass());
 	}
@@ -46,7 +55,7 @@ public class InfantryTest
 	@Test
 	public void testSetCharacterClass()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		
 		infantry.setCharacterClass(character_class_1_);
 		
@@ -56,8 +65,35 @@ public class InfantryTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testSetCharacterClassWithNull()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		infantry.setCharacterClass(null);
+	}
+	
+	// Race
+	
+	@Test
+	public void testGetRace()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		
+		assertEquals(race_0_, infantry.getRace());
+	}
+
+	@Test
+	public void testSetRace()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		
+		infantry.setRace(race_1_);
+		
+		assertEquals(race_1_, infantry.getRace());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSetRaceWithNull()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		infantry.setRace(null);
 	}
 	
 	// Attribute
@@ -65,16 +101,18 @@ public class InfantryTest
 	@Test
 	public void testGetAttribute()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		
-		assertEquals(attribute_level_0_, infantry.getAttribute(attribute_0_));
+		int sum = attribute_level_0_ + attribute_level_1_;
+		
+		assertEquals(sum, infantry.getAttribute(attribute_0_));
 		assertEquals(0, infantry.getAttribute(attribute_1_));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetAttributeWithNull()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		infantry.getAttribute(null);
 	}
 	
@@ -83,16 +121,18 @@ public class InfantryTest
 	@Test
 	public void testGetSkill()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		
-		assertEquals(skill_level_0_, infantry.getSkill(skill_0_));
+		int sum = skill_level_0_ + skill_level_1_;
+		
+		assertEquals(sum, infantry.getSkill(skill_0_));
 		assertEquals(0, infantry.getSkill(skill_1_));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetSkillWithNull()
 	{
-		Infantry infantry = new Infantry(name_, character_class_0_);
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		infantry.getSkill(null);
 	}
 }
