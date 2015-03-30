@@ -1,6 +1,6 @@
 package jfws.gameplay.war.unit.stats;
 
-public class Race extends Stats
+public class Race extends CharacterStats
 {
 	private String name_;
 	

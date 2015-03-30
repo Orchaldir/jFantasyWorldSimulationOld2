@@ -1,9 +1,8 @@
 package jfws.gameplay.war.unit.type;
 
-import jfws.gameplay.war.unit.stats.Attribute;
-import jfws.gameplay.war.unit.stats.Skill;
+import jfws.gameplay.war.unit.stats.Stats;
 
-public abstract class UnitType
+public abstract class UnitType implements Stats
 {
 	protected String name_;
 	
@@ -16,8 +15,4 @@ public abstract class UnitType
 	{
 		return name_;
 	}
-	
-	public abstract int getAttribute(Attribute attribute);
-	
-	public abstract int getSkill(Skill skill);
 }

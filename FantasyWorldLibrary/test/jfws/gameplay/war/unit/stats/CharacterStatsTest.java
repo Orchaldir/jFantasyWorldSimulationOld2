@@ -3,7 +3,7 @@ package jfws.gameplay.war.unit.stats;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class StatsTest
+public class CharacterStatsTest
 {
 	private Attribute attribute_0_ = new Attribute("Attribute 0", 0);
 	private Attribute attribute_1_ = new Attribute("Attribute 1", 1);
@@ -17,14 +17,14 @@ public class StatsTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetAttributeWithNull()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		stats.getAttribute(null);
 	}
 	
 	@Test
 	public void testGetAttributeNotSet()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		
 		assertEquals(0, stats.getAttribute(attribute_0_));
 		assertEquals(0, stats.getAttribute(attribute_1_));
@@ -33,7 +33,7 @@ public class StatsTest
 	@Test
 	public void testSetAndGetAttribute()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		
 		stats.setAttribute(attribute_0_, value_0_);
 		stats.setAttribute(attribute_1_, value_1_);
@@ -45,7 +45,7 @@ public class StatsTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testSetAttributeWithNull()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		stats.setAttribute(null, value_0_);
 	}
 	
@@ -54,14 +54,14 @@ public class StatsTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testGetSkillWithNull()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		stats.getSkill(null);
 	}
 	
 	@Test
 	public void testGetSkillNotSet()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		
 		assertEquals(0, stats.getSkill(skill_0_));
 		assertEquals(0, stats.getSkill(skill_1_));
@@ -70,7 +70,7 @@ public class StatsTest
 	@Test
 	public void testSetAndGetSkill()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		
 		stats.setSkill(skill_0_, value_0_);
 		stats.setSkill(skill_1_, value_1_);
@@ -82,7 +82,7 @@ public class StatsTest
 	@Test(expected=IllegalArgumentException.class)
 	public void testSetSkillWithNull()
 	{
-		Stats stats = new Stats();
+		CharacterStats stats = new CharacterStats();
 		stats.setSkill(null, value_0_);
 	}
 }
