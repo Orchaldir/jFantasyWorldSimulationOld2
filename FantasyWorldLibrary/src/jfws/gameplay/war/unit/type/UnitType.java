@@ -15,4 +15,9 @@ public abstract class UnitType implements Stats
 	{
 		return name_;
 	}
+	
+	public int getHitPoints()
+	{
+		return 1;
+	}
 }
