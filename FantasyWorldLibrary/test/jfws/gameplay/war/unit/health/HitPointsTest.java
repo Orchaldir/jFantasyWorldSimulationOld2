@@ -152,4 +152,12 @@ public class HitPointsTest
 		
 		assertEquals(0, hp.hit_points_);
 	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testApplyNegativeNumberOfAttacks()
+	{
+		HitPoints hp = new HitPoints(count_, hit_points_per_member_);
+		
+		hp.applyDamage(0, -1);
+	}
 }

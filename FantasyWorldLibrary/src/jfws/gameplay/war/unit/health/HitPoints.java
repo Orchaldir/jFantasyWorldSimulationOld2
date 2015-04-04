@@ -75,6 +75,9 @@ public class HitPoints implements Health
 	@Override
 	public void applyDamage(int damage_per_attack, int N_attacks)
 	{
+		if(N_attacks < 1)
+			throw new IllegalArgumentException("Number of Attacks must be greater than 0!");
+		
 		int damage = getTotalDamage(damage_per_attack, N_attacks);
 		
 		if(damage > hit_points_)

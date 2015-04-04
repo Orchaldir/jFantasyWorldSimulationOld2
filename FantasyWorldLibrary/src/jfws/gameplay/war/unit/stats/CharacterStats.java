@@ -1,12 +1,17 @@
 package jfws.gameplay.war.unit.stats;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import jfws.gameplay.war.combat.Protection;
 
 public class CharacterStats implements Stats
 {
 	protected Map<Attribute,Integer> attributes_ = new HashMap<>();
 	protected Map<Skill,Integer> skills_ = new HashMap<>();
+	
+	protected List<Protection> protections_ = new ArrayList<>();
 	
 	@Override
 	public int getAttribute(Attribute attribute)
@@ -44,5 +49,22 @@ public class CharacterStats implements Stats
 			throw new IllegalArgumentException("Skill can not be null!");
 		
 		skills_.put(skill, level);
+	}
+	
+	public void addProtection(Protection protection)
+	{
+		if(protection == null)
+			throw new IllegalArgumentException("Protection can not be null!");
+		
+		protections_.add(protection);
+	}
+	
+	@Override
+	public void getProtections(List<Protection> protections)
+	{
+		if(protections == null)
+			throw new IllegalArgumentException("List of Protections can not be null!");
+		
+		protections.addAll(protections_);
 	}
 }

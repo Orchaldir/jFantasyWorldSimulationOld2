@@ -1,5 +1,8 @@
 package jfws.gameplay.war.unit.type;
 
+import java.util.ArrayList;
+import java.util.List;
+import jfws.gameplay.war.combat.Protection;
 import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.CharacterClass;
 import jfws.gameplay.war.unit.stats.Race;
@@ -23,6 +26,8 @@ public class InfantryTest
 	private static int attribute_level_1_ = 7;
 	private static int skill_level_0_ = 3;
 	private static int skill_level_1_ = 5;
+	private static Protection protection_0_ = new Protection("Protection 0", null);
+	private static Protection protection_1_ = new Protection("Protection 1", null);
 	
 	@BeforeClass
 	public static void onlyOnce()
@@ -30,6 +35,7 @@ public class InfantryTest
 		character_class_0_ = new CharacterClass("Character Class 0");
 		character_class_0_.setAttribute(attribute_0_, attribute_level_0_);
 		character_class_0_.setSkill(skill_0_, skill_level_0_);
+		character_class_0_.addProtection(protection_0_);
 		
 		character_class_1_ = new CharacterClass("Character Class 1");
 		character_class_1_.setAttribute(attribute_1_, attribute_level_1_);
@@ -38,6 +44,7 @@ public class InfantryTest
 		race_0_ = new Race("Race 0");
 		race_0_.setAttribute(attribute_0_, attribute_level_1_);
 		race_0_.setSkill(skill_0_, skill_level_1_);
+		race_0_.addProtection(protection_1_);
 		
 		race_1_ = new Race("Race 1");
 	}
@@ -134,5 +141,27 @@ public class InfantryTest
 	{
 		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		infantry.getSkill(null);
+	}
+	
+	// Protection
+	
+	@Test
+	public void testGetProtections()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		List<Protection> protections = new ArrayList<>();
+		
+		infantry.getProtections(protections);
+		
+		assertEquals(2, protections.size());
+		assertEquals(protection_0_, protections.get(0));
+		assertEquals(protection_1_, protections.get(1));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetProtectionWithNull()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		infantry.getProtections(null);
 	}
 }

@@ -1,5 +1,7 @@
 package jfws.gameplay.war.unit.type;
 
+import java.util.List;
+import jfws.gameplay.war.combat.Protection;
 import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.CharacterClass;
 import jfws.gameplay.war.unit.stats.Race;
@@ -59,5 +61,15 @@ public class Infantry extends UnitType
 			throw new IllegalArgumentException("Skill can not be null!");
 		
 		return character_class_.getSkill(skill) + race_.getSkill(skill);
+	}
+	
+	@Override
+	public void getProtections(List<Protection> protections)
+	{
+		if(protections == null)
+			throw new IllegalArgumentException("List of Protections can not be null!");
+		
+		character_class_.getProtections(protections);
+		race_.getProtections(protections);
 	}
 }
