@@ -46,12 +46,20 @@ public class Unit implements Stats
 		return type_.getSkill(skill);
 	}
 	
-	@Override
 	public void getProtections(List<Protection> protections)
 	{
 		if(protections == null)
 			throw new IllegalArgumentException("List of Protections can not be null!");
 		
 		type_.getProtections(protections);
+	}
+	
+	@Override
+	public int getProtectionValue(Stats stats)
+	{
+		if(stats == null)
+			throw new IllegalArgumentException("Stats can not be null!");
+		
+		return type_.getProtectionValue(stats);
 	}
 }

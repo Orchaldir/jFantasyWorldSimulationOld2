@@ -6,6 +6,7 @@ import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.CharacterClass;
 import jfws.gameplay.war.unit.stats.Race;
 import jfws.gameplay.war.unit.stats.Skill;
+import jfws.gameplay.war.unit.stats.Stats;
 
 public class Infantry extends UnitType
 {
@@ -69,7 +70,19 @@ public class Infantry extends UnitType
 		if(protections == null)
 			throw new IllegalArgumentException("List of Protections can not be null!");
 		
-		character_class_.getProtections(protections);
-		race_.getProtections(protections);
+		if(race_.hasProtection())
+			protections.add(race_.getProtection());
+		
+		if(character_class_.hasProtection())
+			protections.add(character_class_.getProtection());
+	}
+	
+	@Override
+	public int getProtectionValue(Stats stats)
+	{
+		if(stats == null)
+			throw new IllegalArgumentException("Stats can not be null!");
+		
+		return race_.getProtectionValue(stats) + character_class_.getProtectionValue(stats);
 	}
 }

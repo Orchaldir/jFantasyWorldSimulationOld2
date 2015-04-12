@@ -1,8 +1,6 @@
 package jfws.gameplay.war.unit.stats;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import jfws.gameplay.war.combat.Protection;
 
@@ -11,7 +9,9 @@ public class CharacterStats implements Stats
 	protected Map<Attribute,Integer> attributes_ = new HashMap<>();
 	protected Map<Skill,Integer> skills_ = new HashMap<>();
 	
-	protected List<Protection> protections_ = new ArrayList<>();
+	protected Protection protection_ = null;
+	
+	// Attribute
 	
 	@Override
 	public int getAttribute(Attribute attribute)
@@ -32,6 +32,8 @@ public class CharacterStats implements Stats
 		attributes_.put(attribute, level);
 	}
 	
+	// Skill
+	
 	@Override
 	public int getSkill(Skill skill)
 	{
@@ -51,20 +53,31 @@ public class CharacterStats implements Stats
 		skills_.put(skill, level);
 	}
 	
-	public void addProtection(Protection protection)
+	// Protection
+	
+	public Protection getProtection()
 	{
-		if(protection == null)
-			throw new IllegalArgumentException("Protection can not be null!");
-		
-		protections_.add(protection);
+		return protection_;
 	}
 	
 	@Override
-	public void getProtections(List<Protection> protections)
+	public int getProtectionValue(Stats stats)
 	{
-		if(protections == null)
-			throw new IllegalArgumentException("List of Protections can not be null!");
+		if(stats == null)
+			throw new IllegalArgumentException("Stats can not be null!");
+		else if(protection_ == null)
+			return 0;
 		
-		protections.addAll(protections_);
+		return protection_.getProtectionValue(stats);
+	}
+	
+	public boolean hasProtection()
+	{
+		return protection_ != null;
+	}
+	
+	public void setProtection(Protection protection)
+	{
+		protection_ = protection;
 	}
 }

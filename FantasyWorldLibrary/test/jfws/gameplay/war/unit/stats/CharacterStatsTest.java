@@ -1,8 +1,7 @@
 package jfws.gameplay.war.unit.stats;
 
-import java.util.ArrayList;
-import java.util.List;
 import jfws.gameplay.war.combat.Protection;
+import jfws.gameplay.war.unit.stats.value.ConstantValue;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,8 +13,10 @@ public class CharacterStatsTest
 	private Skill skill_1_ = new Skill("Skill 1");
 	private int value_0_ = 2;
 	private int value_1_ = 7;
-	private Protection protection_0_ = new Protection("Protection 0", null);
-	private Protection protection_1_ = new Protection("Protection 1", null);
+	private int protection_value_0_ = 4;
+	private int protection_value_1_ = 5;
+	private Protection protection_0_ = new Protection("Protection 0", new ConstantValue(protection_value_0_));
+	private Protection protection_1_ = new Protection("Protection 1", new ConstantValue(protection_value_1_));
 	
 	// Attribute
 
@@ -94,48 +95,65 @@ public class CharacterStatsTest
 	// Protection
 	
 	@Test
-	public void testAddAndGetProtections()
+	public void testGetProtection()
 	{
 		CharacterStats stats = new CharacterStats();
-		List<Protection> protections = new ArrayList<>();
+		stats.protection_ = protection_0_;
 		
-		stats.addProtection(protection_0_);
-		stats.getProtections(protections);
-		
-		assertEquals(1, protections.size());
-		assertEquals(protection_0_, protections.get(0));
-		
-		stats.addProtection(protection_1_);
-		protections.clear();
-		stats.getProtections(protections);
-		
-		assertEquals(2, protections.size());
-		assertEquals(protection_0_, protections.get(0));
-		assertEquals(protection_1_, protections.get(1));
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testAddProtectionWithNull()
-	{
-		CharacterStats stats = new CharacterStats();
-		stats.addProtection(null);
+		assertEquals(protection_0_, stats.getProtection());
 	}
 	
 	@Test
-	public void testGetEmptyProtections()
+	public void testGetProtectionValue()
 	{
 		CharacterStats stats = new CharacterStats();
-		List<Protection> protections = new ArrayList<>();
+		stats.setProtection(protection_0_);
 		
-		stats.getProtections(protections);
-		
-		assertEquals(0, protections.size());
+		assertEquals(protection_value_0_, stats.getProtectionValue(stats));
+	}
+	
+	@Test
+	public void testGetNoProtectionValue()
+	{
+		CharacterStats stats = new CharacterStats();
+		assertEquals(0, stats.getProtectionValue(stats));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void testGetProtectionWithNull()
+	public void testGetProtectionValueWithNull()
 	{
 		CharacterStats stats = new CharacterStats();
-		stats.getProtections(null);
+		stats.getProtectionValue(null);
+	}
+	
+	@Test
+	public void testHasProtection()
+	{
+		CharacterStats stats = new CharacterStats();
+		
+		assertFalse(stats.hasProtection());
+		
+		stats.protection_ = protection_0_;
+		
+		assertTrue(stats.hasProtection());
+	}
+	
+	@Test
+	public void testSetProtection()
+	{
+		CharacterStats stats = new CharacterStats();
+		stats.setProtection(protection_0_);
+		
+		assertEquals(protection_0_, stats.protection_);
+	}
+	
+	@Test
+	public void testSetProtectionWithNull()
+	{
+		CharacterStats stats = new CharacterStats();
+		stats.protection_ = protection_0_;
+		stats.setProtection(null);
+		
+		assertEquals(null, stats.protection_);
 	}
 }

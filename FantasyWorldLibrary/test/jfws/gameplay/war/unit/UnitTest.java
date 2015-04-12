@@ -5,6 +5,7 @@ import java.util.List;
 import jfws.gameplay.war.combat.Protection;
 import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.Skill;
+import jfws.gameplay.war.unit.stats.Stats;
 import jfws.gameplay.war.unit.type.Infantry;
 import jfws.gameplay.war.unit.type.UnitType;
 import org.junit.Test;
@@ -14,6 +15,7 @@ public class UnitTest
 {
 	private int attribute_level_ = 2;
 	private int skill_level_ = 3;
+	private int protection_level_ = 4;
 	private Protection protection_0_ = new Protection("Protection 0", null);
 	
 	public class MockUnitType extends UnitType
@@ -39,6 +41,12 @@ public class UnitTest
 		public void getProtections(List<Protection> protections)
 		{
 			protections.add(protection_0_);
+		}
+		
+		@Override
+		public int getProtectionValue(Stats stats)
+		{
+			return protection_level_;
 		}
 	}
 	
@@ -105,5 +113,17 @@ public class UnitTest
 	public void testGetProtectionsWithNull()
 	{
 		unit_.getProtections(null);
+	}
+	
+	@Test
+	public void testGetProtectionValue()
+	{
+		assertEquals(protection_level_, unit_.getProtectionValue(unit_));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetProtectionValueWithNull()
+	{
+		unit_.getProtectionValue(null);
 	}
 }

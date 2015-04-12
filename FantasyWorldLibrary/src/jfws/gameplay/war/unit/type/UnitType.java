@@ -1,5 +1,7 @@
 package jfws.gameplay.war.unit.type;
 
+import java.util.List;
+import jfws.gameplay.war.combat.Protection;
 import jfws.gameplay.war.unit.stats.Stats;
 
 public abstract class UnitType implements Stats
@@ -20,4 +22,6 @@ public abstract class UnitType implements Stats
 	{
 		return 1;
 	}
+	
+	public abstract void getProtections(List<Protection> protections);
 }

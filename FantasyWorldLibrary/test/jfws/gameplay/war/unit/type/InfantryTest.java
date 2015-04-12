@@ -7,6 +7,7 @@ import jfws.gameplay.war.unit.stats.Attribute;
 import jfws.gameplay.war.unit.stats.CharacterClass;
 import jfws.gameplay.war.unit.stats.Race;
 import jfws.gameplay.war.unit.stats.Skill;
+import jfws.gameplay.war.unit.stats.value.ConstantValue;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -26,8 +27,10 @@ public class InfantryTest
 	private static int attribute_level_1_ = 7;
 	private static int skill_level_0_ = 3;
 	private static int skill_level_1_ = 5;
-	private static Protection protection_0_ = new Protection("Protection 0", null);
-	private static Protection protection_1_ = new Protection("Protection 1", null);
+	private static int protection_value_0_ = 4;
+	private static int protection_value_1_ = 5;
+	private static Protection protection_0_ = new Protection("Protection 0", new ConstantValue(protection_value_0_));
+	private static Protection protection_1_ = new Protection("Protection 1", new ConstantValue(protection_value_1_));
 	
 	@BeforeClass
 	public static void onlyOnce()
@@ -35,7 +38,7 @@ public class InfantryTest
 		character_class_0_ = new CharacterClass("Character Class 0");
 		character_class_0_.setAttribute(attribute_0_, attribute_level_0_);
 		character_class_0_.setSkill(skill_0_, skill_level_0_);
-		character_class_0_.addProtection(protection_0_);
+		character_class_0_.setProtection(protection_0_);
 		
 		character_class_1_ = new CharacterClass("Character Class 1");
 		character_class_1_.setAttribute(attribute_1_, attribute_level_1_);
@@ -44,7 +47,7 @@ public class InfantryTest
 		race_0_ = new Race("Race 0");
 		race_0_.setAttribute(attribute_0_, attribute_level_1_);
 		race_0_.setSkill(skill_0_, skill_level_1_);
-		race_0_.addProtection(protection_1_);
+		race_0_.setProtection(protection_1_);
 		
 		race_1_ = new Race("Race 1");
 	}
@@ -154,14 +157,42 @@ public class InfantryTest
 		infantry.getProtections(protections);
 		
 		assertEquals(2, protections.size());
-		assertEquals(protection_0_, protections.get(0));
-		assertEquals(protection_1_, protections.get(1));
+		assertEquals(protection_1_, protections.get(0));
+		assertEquals(protection_0_, protections.get(1));
+	}
+	
+	@Test
+	public void testGetNoProtections()
+	{
+		Infantry infantry = new Infantry(name_, character_class_1_, race_1_);
+		List<Protection> protections = new ArrayList<>();
+		
+		infantry.getProtections(protections);
+		
+		assertEquals(0, protections.size());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void testGetProtectionWithNull()
+	public void testGetProtectionsWithNull()
 	{
 		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
 		infantry.getProtections(null);
+	}
+	
+	@Test
+	public void testGetProtectionValue()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		
+		int result = protection_value_0_ + protection_value_1_;
+		
+		assertEquals(result, infantry.getProtectionValue(infantry));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetProtectionValueWithNull()
+	{
+		Infantry infantry = new Infantry(name_, character_class_0_, race_0_);
+		infantry.getProtectionValue(null);
 	}
 }
